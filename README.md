@@ -40,27 +40,47 @@ For Group table1(Group Table ID 50), we created two buckets - one bucket will se
 ## Steps 
 
 * Run the topology file 
+``` 
 sudo python2 topology.py
+```
 * Run the ryu controller application(simple switch and ofctl)
+```
 ryu-manager ryu.app.simple_switch_13 ryu.app.ofctl_rest
+```
 * Do pingall from mininet
 * Check the flows of switch s3
+```
  sudo ovs-vsctl show
+ ```
+ ```
  sudo ovs-ofctl -O OpenFlow13 dump-flows s3 
+ ```
+ ```
 sudo ovs-ofctl -O OpenFlow13 dump-groups s3
+```
+
 * Configure the Group in S2
+```
 curl -X POST http://localhost:8080/stats/groupentry/add -d '@group50.json' 
+```
+```
 curl -X POST http://localhost:8080/stats/groupentry/add -d '@group51.json'
+```
 * Check the group tables.
 * Configure all the Flows. Here just showing only for switch S3 connected to the sniffer. Similarly, add the flowings for all the remaining ones and check the flow tables.
+```
 curl -X POST http://localhost:8080/stats/flowentry/add -d '@s3_flow1.json' 
+```
+```
 curl -X POST http://localhost:8080/stats/flowentry/add -d '@s3_flow2.json'
+```
  * Testing
 Trigger a continuous ping from h1 to h12 and capture traffic in h3 using tcpdump
  a) start the xterm for h3
  In the h3 terminal capture tcpdump 
+ ```
  tcpdump -i any icmp -vvv
+ ```
  b) continuous ping from h1 to h12
  c) check the h3 xterm window, you will observe the h1 to h12 traffic.
-
  ![XTERM IN H3](./images/4%20Sniffer%20in%20H3.png)
