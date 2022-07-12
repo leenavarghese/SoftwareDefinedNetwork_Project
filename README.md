@@ -74,13 +74,13 @@ curl -X POST http://localhost:8080/stats/flowentry/add -d '@s3_flow1.json'
 ```
 curl -X POST http://localhost:8080/stats/flowentry/add -d '@s3_flow2.json'
 ```
- * Testing
+ ## Testing
 Trigger a continuous ping from h1 to h12 and capture traffic in h3 using tcpdump
- a) start the xterm for h3
+ * start the xterm for h3
  In the h3 terminal capture tcpdump 
  ```
  tcpdump -i any icmp -vvv
  ```
- b) continuous ping from h1 to h12
- c) check the h3 xterm window, you will observe the h1 to h12 traffic.
+ * continuous ping from h1 to h12
+ * check the h3 xterm window, you will observe the h1 to h12 traffic.
  ![XTERM IN H3](./images/4%20Sniffer%20in%20H3.png)
